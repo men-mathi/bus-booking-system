@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Admin Bookings</title>
+<link rel="stylesheet" href="../css/admin.css">
+</head>
+
+
+    <script src="../js/adminAuth.js"></script>
+<script>
+if (!localStorage.getItem("adminToken")) {
+  window.location.href = "adminLogin.html";
+}
+</script>
+<div class="admin-container">
+
+<div class="sidebar">
+<h2>TransitCloud</h2>
+<a href="adminDashboard.html">Dashboard</a>
+<a href="adminBuses.html">Manage Buses</a>
+<a href="adminBookings.html">Bookings</a>
+<a href="adminMessages.html">Messages</a>
+<a href="adminUsers.html">Users</a>
+</div>
+
+<div class="main-content">
+
+<button onclick="location.href='../login.html'" class="logout-btn">Logout</button>
+
+<h1>All Bookings</h1>
+
+<table class="table">
+<thead>
+<tr>
+<th>User</th>
+<th>Bus</th>
+<th>Seats</th>
+<th>Price</th>
+</tr>
+</thead>
+
+<tbody id="bookingTable"></tbody>
+</table>
+
+</div>
+</div>
+
+<script src="../js/admin.js"></script>
+<script>
+async function loadBookings() {
+
+    const res = await fetch("http://localhost:5000/api/admin/bookings");
+    const data = await res.json();
+
+    const table = document.querySelector("table");
+
+    // ✅ clear old data (prevents duplicate rows)
+    table.innerHTML = `
+        <tr>
+            <th>User</th>
+            <th>Bus</th>
+            <th>Seats</th>
+            <th>Price</th>
+        </tr>
+    `;
+
+    data.forEach(b => {
+
+        const row = table.insertRow();
+
+        row.innerHTML = `
+            <td>${b.userId?.name || "User"}</td>
+            <td>${b.busId?.busName || "Bus"}</td>
+            <td>${b.seats?.join(", ") || "-"}</td>
+            <td>₹${b.busId?.price || 0}</td>
+        `;
+    });
+}
+
+loadBookings();
+</script>
+</body>
+</html>

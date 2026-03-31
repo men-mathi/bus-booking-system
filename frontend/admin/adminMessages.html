@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Admin Messages</title>
+<link rel="stylesheet" href="../css/admin.css">
+</head>
+
+<body onload="loadMessages()">
+
+<script src="../js/adminAuth.js"></script>
+
+<script>
+if (!localStorage.getItem("adminToken")) {
+  window.location.href = "adminLogin.html";
+}
+</script>
+
+<div class="admin-container">
+
+<div class="sidebar">
+<h2>TransitCloud</h2>
+
+<a href="adminDashboard.html">Dashboard</a>
+<a href="adminBuses.html">Manage Buses</a>
+<a href="adminBookings.html">Bookings</a>
+<a href="adminMessages.html">Messages</a>
+<a href="adminUsers.html">Users</a>
+</div>
+
+<div class="main">
+
+<button onclick="location.href='../login.html'" class="logout-btn">Logout</button>
+
+<h1>Passenger Messages</h1>
+
+<div id="messages"></div>
+
+</div>
+</div>
+
+<script>
+async function loadMessages() {
+
+    try {
+
+        const res = await fetch("http://localhost:5000/api/contact");
+
+        const data = await res.json();
+
+        console.log("API DATA:", data); // 🔥 debug
+
+        const container = document.getElementById("messages");
+
+        container.innerHTML = "";
+
+        if (!data || data.length === 0) {
+            container.innerHTML = "<p style='color:white'>No messages found</p>";
+            return;
+        }
+
+        data.forEach(msg => {
+
+            const div = document.createElement("div");
+
+            div.className = "messageCard";
+
+            div.innerHTML = `
+                <h3>${msg.name}</h3>
+                <p>${msg.email}</p>
+                <p>${msg.message}</p>
+            `;
+
+            container.appendChild(div);
+        });
+
+    } catch (error) {
+        console.error("ERROR:", error);
+    }
+}
+</script>
+
+</body>
+</html>

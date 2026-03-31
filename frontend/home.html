@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Smart Bus Connect</title>
+
+<link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+
+<header class="navbar">
+
+<h2 class="logo">TransitCloud</h2>
+
+<nav>
+
+<a href="home.html">Home</a>
+<a href="buses.html">Buses</a>
+<a href="about.html">About</a>
+<a href="contact.html">Contact</a>
+<a href="login.html">Login</a>
+<a href="profile.html">Profile</a>
+
+</nav>
+
+</header>
+
+
+<section class="hero">
+
+<div class="heroText">
+
+<h1>Smart Bus Connect</h1>
+
+<p>Book bus tickets across India easily and securely.</p>
+
+<a href="login.html" class="primaryBtn">Book Ticket</a>
+</div>
+
+</section>
+<script>
+
+function checkLogin(){
+
+const user = localStorage.getItem("user");
+
+if(user){
+
+window.location.href = "buses.html";
+
+}
+else{
+
+window.location.href = "login.html";
+
+}
+
+}
+
+</script>
+<script>
+
+fetch("http://localhost:5000/api/test")
+.then(response => response.json())
+.then(data => {
+
+    console.log(data.message);
+
+    document.getElementById("serverStatus").innerText = data.message;
+
+})
+.catch(error => console.log(error));
+
+</script>
+</body>
+
+</html>

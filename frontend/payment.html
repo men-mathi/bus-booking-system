@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Payment - TransitCloud</title>
+<link rel="stylesheet" href="css/style.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+
+/* 🔥 FULL SCREEN LAYOUT */
+.paymentWrapper {
+    display: flex;
+    height: 100vh;
+}
+
+/* LEFT SIDE */
+.paymentLeft {
+    flex: 1;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 60px;
+}
+
+.paymentLeft h1 {
+    font-size: 32px;
+    margin-bottom: 15px;
+}
+
+.paymentLeft p {
+    opacity: 0.8;
+}
+
+/* RIGHT SIDE */
+.paymentRight {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* CARD PREVIEW */
+.cardPreview {
+    width: 340px;
+    height: 200px;
+    background: linear-gradient(135deg, #36d1dc, #5b86e5);
+    border-radius: 20px;
+    padding: 25px;
+    color: white;
+    margin-bottom: 25px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+}
+
+.cardNumber {
+    font-size: 22px;
+    letter-spacing: 2px;
+    margin: 30px 0;
+}
+
+.cardBottom {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+}
+
+/* FORM CARD */
+.paymentCard {
+    width: 380px;
+    padding: 35px 30px;
+    border-radius: 18px;
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+/* INPUT FIELDS */
+.paymentCard input {
+    width: 100%;
+    padding: 14px 16px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+
+    font-size: 14px;
+    background: rgba(255,255,255,0.9);
+
+    box-sizing: border-box;
+}
+
+/* ROW */
+.paymentRow {
+    display: flex;
+    gap: 12px;
+}
+
+.paymentRow input {
+    flex: 1;
+}
+
+/* BUTTON */
+.payBtn {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    background: linear-gradient(135deg, #36d1dc, #5b86e5);
+    color: white;
+    border-radius: 10px;
+
+    font-size: 16px;
+    font-weight: 600;
+
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    margin-top: 10px;
+}
+
+.payBtn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+/* ALIGN */
+.paymentRight > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+</style>
+</head>
+
+<body>
+
+<div class="paymentWrapper">
+
+<!-- LEFT -->
+<div class="paymentLeft">
+<h1>Secure Payment</h1>
+<p>Complete your booking safely with TransitCloud</p>
+</div>
+
+<!-- RIGHT -->
+<div class="paymentRight">
+
+<div>
+
+<!-- CARD -->
+<div class="cardPreview">
+
+<div class="cardNumber" id="previewNumber">XXXX XXXX XXXX XXXX</div>
+
+<div class="cardBottom">
+<span id="previewName">YOUR NAME</span>
+<span id="previewExpiry">MM/YY</span>
+</div>
+
+</div>
+
+<!-- FORM -->
+<div class="paymentCard">
+
+<div id="paymentForm">
+
+<input type="text" id="cardNumber" placeholder="Card Number" maxlength="19">
+
+<input type="text" id="cardName" placeholder="Card Holder Name" >
+
+<div class="paymentRow">
+<input type="text" id="expiry" placeholder="MM/YY" maxlength="5" >
+<input type="password" id="cvv" placeholder="CVV" maxlength="3" >
+</div>
+
+<!-- ✅ ONLY FIX -->
+<button type="button" class="payBtn">Pay Now</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<script src="js/payment.js"></script>
+
+<script>
+const numberInput = document.getElementById("cardNumber");
+const nameInput = document.getElementById("cardName");
+const expiryInput = document.getElementById("expiry");
+
+numberInput.addEventListener("input", () => {
+let value = numberInput.value.replace(/\D/g, "").substring(0,16);
+value = value.replace(/(.{4})/g, "$1 ").trim();
+numberInput.value = value;
+document.getElementById("previewNumber").innerText = value || "XXXX XXXX XXXX XXXX";
+});
+
+nameInput.addEventListener("input", () => {
+document.getElementById("previewName").innerText = nameInput.value.toUpperCase() || "YOUR NAME";
+});
+
+expiryInput.addEventListener("input", () => {
+let value = expiryInput.value.replace(/\D/g, "").substring(0,4);
+if(value.length >= 3){
+value = value.substring(0,2) + "/" + value.substring(2);
+}
+expiryInput.value = value;
+document.getElementById("previewExpiry").innerText = value || "MM/YY";
+});
+</script>
+
+</body>
+</html>

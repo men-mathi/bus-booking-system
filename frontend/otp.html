@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="loginPage">
+
+<div class="loginContainer">
+<div class="loginCard">
+
+<h2>OTP Login</h2>
+
+<input id="email" placeholder="Email">
+<button onclick="sendOTP()">Send OTP</button>
+
+<input id="otp" placeholder="Enter OTP">
+<button onclick="verifyOTP()">Login</button>
+
+<p id="msg"></p>
+
+</div>
+</div>
+
+<script>
+async function sendOTP(){
+const email = document.getElementById("email").value;
+
+const res = await fetch("http://localhost:5000/api/auth/send-otp",{
+method:"POST",
+headers:{ "Content-Type":"application/json" },
+body: JSON.stringify({ email })
+});
+
+const data = await res.json();
+document.getElementById("msg").innerText = data.message;
+}
+
+async function verifyOTP(){
+const email = document.getElementById("email").value;
+const otp = document.getElementById("otp").value;
+
+const res = await fetch("http://localhost:5000/api/auth/verify-otp",{
+method:"POST",
+headers:{ "Content-Type":"application/json" },
+body: JSON.stringify({ email, otp })
+});
+
+const data = await res.json();
+
+if(res.ok){
+localStorage.setItem("token", data.token);
+localStorage.setItem("user", JSON.stringify(data.user));
+window.location.href = "home.html";
+}else{
+document.getElementById("msg").innerText = data.message;
+}
+}
+</script>
+
+</body>
+</html>

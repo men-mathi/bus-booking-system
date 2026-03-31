@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Manage Users</title>
+<link rel="stylesheet" href="../css/admin.css">
+</head>
+
+    <script src="../js/adminAuth.js"></script>
+<script>
+if (!localStorage.getItem("adminToken")) {
+  window.location.href = "adminLogin.html";
+}
+</script>
+<div class="admin-container">
+
+<div class="sidebar">
+<h2>TransitCloud</h2>
+<a href="adminDashboard.html">Dashboard</a>
+<a href="adminBuses.html">Manage Buses</a>
+<a href="adminBookings.html">Bookings</a>
+<a href="adminMessages.html">Messages</a>
+<a href="adminUsers.html">Users</a>
+</div>
+
+<div class="main-content">
+
+<button onclick="location.href='../login.html'" class="logout-btn">Logout</button>
+
+<h1>Registered Users</h1>
+
+<table class="table">
+<thead>
+<tr>
+<th>Name</th>
+<th>Email</th>
+</tr>
+</thead>
+
+<tbody id="userTable"></tbody>
+</table>
+
+</div>
+</div>
+
+<script src="../js/admin.js"></script>
+<script>
+async function loadUsers() {
+
+    const res = await fetch("http://localhost:5000/api/admin/users");
+    const data = await res.json();
+
+    const tbody = document.getElementById("userTable");
+
+    tbody.innerHTML = ""; // ✅ FIX
+
+    data.forEach(user => {
+
+        const row = document.createElement("tr");
+
+        row.innerHTML = `
+            <td>${user.name}</td>
+            <td>${user.email}</td>
+        `;
+
+        tbody.appendChild(row);
+    });
+}
+
+loadUsers();
+</script>
+</body>
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Register - Smart Bus Connect</title>
+
+<link rel="stylesheet" href="css/style.css">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+</head>
+
+<body class="loginPage">
+
+<div class="loginContainer">
+
+<div class="loginCard">
+
+<h2>Create Account</h2>
+
+<p class="loginSubtitle">Register for Smart Bus Connect</p>
+
+<form id="registerForm">
+
+<input type="text" id="name" placeholder="Full Name">
+
+<input type="email" id="email" placeholder="Email Address">
+
+<input type="password" id="password" placeholder="Password">
+
+<input type="password" id="confirmPassword" placeholder="Confirm Password">
+
+<button type="submit" class="primaryBtn">Register</button>
+
+</form>
+
+<p id="error" class="formError"></p>
+<p id="success" class="formSuccess"></p>
+
+<p class="registerText">
+Already have an account?
+<a href="login.html">Login</a>
+</p>
+
+</div>
+
+</div>
+<script>
+
+document.addEventListener("DOMContentLoaded", function(){
+
+const form = document.getElementById("registerForm");
+
+const passwordInput = document.getElementById("password");
+const strengthText = document.createElement("p");
+strengthText.style.fontSize = "13px";
+passwordInput.after(strengthText);
+
+/* PASSWORD STRENGTH */
+
+passwordInput.addEventListener("input", function(){
+
+    const val = passwordInput.value;
+
+    if(val.length < 6){
+        strengthText.innerText = "Weak password";
+        strengthText.style.color = "red";
+    }
+    else if(val.match(/[A-Z]/) && val.match(/[0-9]/)){
+        strengthText.innerText = "Strong password";
+        strengthText.style.color = "lime";
+    }
+    else{
+        strengthText.innerText = "Medium password";
+        strengthText.style.color = "orange";
+    }
+
+});
+
+/* REGISTER */
+
+form.addEventListener("submit", async function(e){
+
+e.preventDefault();
+
+const name = document.getElementById("name").value.trim();
+const email = document.getElementById("email").value.trim();
+const password = document.getElementById("password").value.trim();
+const confirmPassword = document.getElementById("confirmPassword").value.trim();
+
+const error = document.getElementById("error");
+const success = document.getElementById("success");
+
+error.innerText = "";
+success.innerText = "";
+
+if(password !== confirmPassword){
+error.innerText = "Passwords do not match";
+return;
+}
+
+try{
+
+const response = await fetch("http://localhost:5000/api/auth/register",{
+
+method:"POST",
+headers:{ "Content-Type":"application/json" },
+body: JSON.stringify({ name,email,password })
+
+});
+
+const data = await response.json();
+
+if(response.ok){
+
+// 🔥 AUTO LOGIN
+const loginRes = await fetch("http://localhost:5000/api/auth/login",{
+method:"POST",
+headers:{ "Content-Type":"application/json" },
+body: JSON.stringify({ email,password })
+});
+
+const loginData = await loginRes.json();
+
+localStorage.setItem("token", loginData.token);
+localStorage.setItem("user", JSON.stringify(loginData.user));
+
+window.location.href = "home.html";
+
+}
+else{
+error.innerText = data.message;
+}
+
+}catch(err){
+error.innerText = "Server error";
+}
+
+});
+
+});
+
+</script>
+
+</body>
+
+</html>

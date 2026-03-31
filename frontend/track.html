@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Live Bus Tracking</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ✅ LEAFLET -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+
+<!-- ✅ ROUTING -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css" />
+
+<style>
+body {
+    margin: 0;
+    font-family: "Segoe UI";
+    background: #0f2027;
+}
+
+#map {
+    height: 100vh;
+    width: 100%;
+}
+
+/* TOP CARD */
+.topCard {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: rgba(0,0,0,0.7);
+    padding: 15px;
+    border-radius: 12px;
+    z-index: 1000;
+    color: white;
+}
+
+/* BOTTOM PANEL */
+.bottomPanel {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background: rgba(0,0,0,0.8);
+    padding: 20px;
+    color: white;
+    text-align: center;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="topCard">
+    🚍 <b id="busName">Bus</b><br>
+    <span id="routeText">From → To</span>
+</div>
+
+<div id="map"></div>
+
+<div class="bottomPanel">
+    Speed: <span id="speed">--</span>
+</div>
+
+<!-- ✅ SCRIPTS (ORDER IMPORTANT) -->
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
+<script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+
+<script src="js/track.js"></script>
+
+</body>
+</html>

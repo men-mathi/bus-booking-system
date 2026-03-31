@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Reset Password</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="loginPage">
+
+<div class="loginContainer">
+<div class="loginCard">
+
+<h2>Reset Password</h2>
+
+<input type="password" id="password" placeholder="New Password">
+
+<button class="primaryBtn" onclick="resetPassword()">Reset</button>
+
+<p id="msg" class="formSuccess"></p>
+
+</div>
+</div>
+
+<script>
+
+const params = new URLSearchParams(window.location.search);
+const token = params.get("token");
+
+console.log("TOKEN:", token);
+
+async function resetPassword(){
+
+const newPassword = document.getElementById("password").value;
+
+if (!token) {
+alert("Invalid reset link");
+return;
+}
+
+try {
+
+const res = await fetch("http://localhost:5000/api/auth/reset-password", {
+method: "POST",
+headers: {
+"Content-Type": "application/json"
+},
+body: JSON.stringify({
+token,
+newPassword
+})
+});
+
+const data = await res.json();
+
+if(res.ok){
+alert("Password reset successful");
+window.location.href = "login.html";
+}else{
+alert(data.message);
+}
+
+} catch (err) {
+alert("Error resetting password");
+}
+
+}
+
+</script>
+
+</body>
+</html>

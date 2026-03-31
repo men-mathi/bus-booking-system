@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Manage Buses</title>
+<link rel="stylesheet" href="../css/admin.css">
+</head>
+
+
+    <script src="../js/adminAuth.js"></script>
+<script>
+if (!localStorage.getItem("adminToken")) {
+  window.location.href = "adminLogin.html";
+}
+</script>
+<div class="admin-container">
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+<h2>TransitCloud</h2>
+
+<a href="adminDashboard.html">Dashboard</a>
+<a href="adminBuses.html">Manage Buses</a>
+<a href="adminBookings.html">Bookings</a>
+<a href="adminMessages.html">Messages</a>
+<a href="adminUsers.html">Users</a>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+<button onclick="location.href='../login.html'" class="logout-btn">Logout</button>
+
+<h1>Manage Buses</h1>
+
+<input id="name" placeholder="Bus Name">
+<input id="from" placeholder="From">
+<input id="to" placeholder="To">
+<input id="price" placeholder="Price">
+
+<button onclick="addBus()">Add</button>
+
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>From</th>
+<th>To</th>
+<th>Price</th>
+<th>Action</th>
+</tr>
+</thead>
+
+<tbody id="busTable"></tbody>
+
+</table>
+
+</div>
+</div>
+<script src="../js/admin.js"></script>
+<script>
+async function loadBuses() {
+
+    const res = await fetch("http://localhost:5000/api/admin/buses");
+    const buses = await res.json();
+
+    const table = document.querySelector("table");
+
+    buses.forEach(bus => {
+        const row = table.insertRow();
+
+        row.innerHTML = `
+            <td>${bus.busName}</td>
+            <td>${bus.from}</td>
+            <td>${bus.to}</td>
+            <td>${bus.price}</td>
+            <td>
+                <button onclick="deleteBus('${bus._id}')">Delete</button>
+            </td>
+        `;
+    });
+}
+
+async function deleteBus(id) {
+    await fetch(`http://localhost:5000/api/admin/buses/${id}`, {
+        method: "DELETE"
+    });
+
+    location.reload();
+}
+
+loadBuses();
+</script>
+
+</body>
+</html>

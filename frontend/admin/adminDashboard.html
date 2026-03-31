@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Admin Dashboard</title>
+<link rel="stylesheet" href="../css/admin.css">
+
+<!-- ✅ Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body onload="initDashboard()">
+
+<script src="../js/adminAuth.js"></script>
+
+<script>
+if (!localStorage.getItem("adminToken")) {
+  window.location.href = "adminLogin.html";
+}
+</script>
+
+<div class="admin-container">
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+<h2>TransitCloud</h2>
+<a href="adminDashboard.html">Dashboard</a>
+<a href="adminBuses.html">Manage Buses</a>
+<a href="adminBookings.html">Bookings</a>
+<a href="adminMessages.html">Messages</a>
+<a href="adminUsers.html">Users</a>
+</div>
+
+<!-- MAIN -->
+<div class="main-content">
+
+<button onclick="location.href='../login.html'" class="logout-btn">Logout</button>
+
+<h1>Admin Dashboard</h1>
+
+<!-- ✅ CARDS -->
+<div class="card-container">
+    <div class="card">Users <h2 id="users">0</h2></div>
+    <div class="card">Buses <h2 id="buses">0</h2></div>
+    <div class="card">Bookings <h2 id="bookings">0</h2></div>
+    <div class="card">Revenue ₹ <h2 id="revenue">0</h2></div>
+</div>
+
+<!-- ✅ CHART -->
+<div class="chart-container" style="height:350px;">
+  <canvas id="chart"></canvas>
+</div>
+
+</div>
+</div>
+
+<script>
+
+/* ================= LOAD STATS ================= */
+async function loadStats() {
+
+    const res = await fetch("http://localhost:5000/api/admin/stats");
+    const data = await res.json();
+
+    document.getElementById("users").innerText = data.users || 0;
+    document.getElementById("buses").innerText = data.buses || 0;
+    document.getElementById("bookings").innerText = data.bookings || 0;
+
+    // ✅ Simple revenue calculation (you can upgrade later)
+    document.getElementById("revenue").innerText = (data.bookings * 500) || 0;
+
+    return data; // 🔥 important for chart
+}
+
+/* ================= LOAD CHART ================= */
+
+async function loadChart(data) {
+
+    const ctx = document.getElementById("chart");
+
+    new Chart(ctx, {
+        type: "bar",
+        data: {
+            labels: ["Users", "Buses", "Bookings"],
+            datasets: [{
+                label: "System Analytics",
+                data: [data.users, data.buses, data.bookings],
+
+                // ✅ COLORS
+                backgroundColor: [
+                    "rgba(54, 162, 235, 0.6)",
+                    "rgba(75, 192, 192, 0.6)",
+                    "rgba(255, 206, 86, 0.6)"
+                ],
+                borderColor: [
+                    "rgba(54, 162, 235, 1)",
+                    "rgba(75, 192, 192, 1)",
+                    "rgba(255, 206, 86, 1)"
+                ],
+
+                borderWidth: 2,
+                borderRadius: 10,
+                barThickness: 60
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+
+            plugins: {
+                legend: {
+                    labels: {
+                        color: "#ffffff", // white text
+                        font: {
+                            size: 14
+                        }
+                    }
+                }
+            },
+
+            scales: {
+                x: {
+                    ticks: {
+                        color: "#ffffff",
+                        font: {
+                            size: 13
+                        }
+                    },
+                    grid: {
+                        display: false
+                    }
+                },
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        color: "#ffffff"
+                    },
+                    grid: {
+                        color: "rgba(255,255,255,0.1)"
+                    }
+                }
+            }
+        }
+    });
+}
+
+
+/* ================= INIT ================= */
+async function initDashboard() {
+    const data = await loadStats();
+    loadChart(data);
+}
+
+</script>
+
+</body>
+</html>

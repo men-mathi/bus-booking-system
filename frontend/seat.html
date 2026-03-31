@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Select Seats</title>
+
+<link rel="stylesheet" href="css/style.css">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="js/authCheck.js"></script>
+</head>
+
+<body>
+
+<header class="navbar">
+
+<h2 class="logo">TransitCloud</h2>
+
+<nav>
+<a href="home.html">Home</a>
+<a href="buses.html">Buses</a>
+<a href="about.html">About</a>
+<a href="contact.html">Contact</a>
+</nav>
+
+</header>
+
+
+<section class="seatSection">
+
+<h1 class="pageTitle">Select Your Seats</h1>
+
+<div id="seatContainer" class="seatContainer"></div>
+
+<div class="confirmBtnContainer">
+
+<button id="confirmBtn" class="confirmBtn">
+Confirm Booking
+</button>
+
+</div>
+
+</section>
+
+<script src="http://localhost:5000/socket.io/socket.io.js"></script>
+<script src="js/seats.js"></script>
+
+</body>
+</html>

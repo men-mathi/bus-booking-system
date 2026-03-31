@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Your Ticket</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
+
+<style>
+
+/* 🌌 BACKGROUND */
+body {
+    margin: 0;
+    font-family: "Segoe UI", sans-serif;
+    background: radial-gradient(circle at top, #0a192f, #020c1b);
+    color: white;
+}
+
+/* TITLE */
+.ticketTitle {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 30px;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+/* MAIN CARD */
+.ticketCard {
+    width: 920px;
+    margin: 40px auto;
+    border-radius: 18px;
+    display: flex;
+    overflow: hidden;
+
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(18px);
+
+    box-shadow:
+        0 30px 70px rgba(0,0,0,0.6),
+        inset 0 0 0 1px rgba(255,255,255,0.05);
+}
+
+/* LEFT */
+.ticketLeft {
+    flex: 2;
+    padding: 35px;
+}
+
+/* RIGHT */
+.ticketRight {
+    flex: 1;
+    background: rgba(0,0,0,0.25);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 25px;
+    border-left: 1px solid rgba(255,255,255,0.08);
+}
+
+/* ROUTE TIMELINE */
+.route {
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.city {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+/* LINE */
+.line {
+    flex: 1;
+    height: 2px;
+    background: linear-gradient(90deg, #36d1dc, #5b86e5);
+    margin: 0 12px;
+    position: relative;
+}
+
+.line::before {
+    content: "";
+    position: absolute;
+    left: -5px;
+    top: -4px;
+    width: 10px;
+    height: 10px;
+    background: #36d1dc;
+    border-radius: 50%;
+}
+
+.line::after {
+    content: "";
+    position: absolute;
+    right: -5px;
+    top: -4px;
+    width: 10px;
+    height: 10px;
+    background: #5b86e5;
+    border-radius: 50%;
+}
+
+/* DETAILS GRID */
+.details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+}
+
+/* CARD BOX */
+.detailBox {
+    background: rgba(255,255,255,0.06);
+    padding: 14px;
+    border-radius: 12px;
+
+    transition: 0.3s;
+}
+
+.detailBox:hover {
+    transform: translateY(-2px);
+    background: rgba(255,255,255,0.1);
+}
+
+/* LABEL */
+.label {
+    font-size: 12px;
+    opacity: 0.6;
+}
+
+/* VALUE */
+.value {
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 3px;
+}
+
+/* QR */
+.qr img {
+    width: 150px;
+    background: white;
+    padding: 10px;
+    border-radius: 12px;
+
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+}
+
+/* TEXT */
+.scanText {
+    margin-top: 12px;
+    font-size: 13px;
+    opacity: 0.7;
+}
+
+/* BUTTON */
+.downloadBtn {
+    margin-top: 20px;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 10px;
+
+    background: linear-gradient(135deg, #36d1dc, #5b86e5);
+    color: white;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+.downloadBtn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 25px rgba(0,0,0,0.3);
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+    .ticketCard {
+        flex-direction: column;
+        width: 90%;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<h2 class="ticketTitle">🎫 Your Ticket</h2>
+
+<div class="ticketCard">
+
+<!-- LEFT -->
+<div class="ticketLeft">
+
+<!-- ROUTE -->
+<div class="route">
+    <div class="city" id="from"></div>
+    <div class="line"></div>
+    <div class="city" id="to"></div>
+</div>
+
+<!-- DETAILS -->
+<div class="details">
+
+<div class="detailBox">
+    <div class="label">Passenger</div>
+    <div class="value" id="userName"></div>
+</div>
+
+<div class="detailBox">
+    <div class="label">Bus</div>
+    <div class="value" id="busName"></div>
+</div>
+
+<div class="detailBox">
+    <div class="label">Seats</div>
+    <div class="value" id="seatNumber"></div>
+</div>
+
+<div class="detailBox">
+    <div class="label">Date</div>
+    <div class="value" id="date"></div>
+</div>
+
+<div class="detailBox">
+    <div class="label">Time</div>
+    <div class="value" id="time"></div>
+</div>
+
+<div class="detailBox">
+    <div class="label">Ticket ID</div>
+    <div class="value" id="ticketId"></div>
+</div>
+
+</div>
+
+</div>
+
+<!-- RIGHT -->
+<div class="ticketRight">
+
+<div class="qr">
+   <img id="qrImage" width="160" />
+</div>
+
+<div class="scanText">Scan while boarding</div>
+
+<button class="downloadBtn" onclick="downloadTicket()">Download Ticket</button>
+
+</div>
+
+</div>
+<!-- ADD THIS ABOVE ticket.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script src="js/ticket.js"></script>
+
+</body>
+</html>

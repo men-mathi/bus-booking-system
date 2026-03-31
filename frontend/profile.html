@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>My Profile</title>
+<link rel="stylesheet" href="css/style.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<button onclick="toggleTheme()">🌙 Toggle Theme</button>
+<style>
+
+/* LAYOUT */
+body {
+    margin: 0;
+    font-family: Arial;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    color: white;
+}
+
+/* SIDEBAR */
+.sidebar {
+    width: 220px;
+    height: 100vh;
+    background: #0d1b2a;
+    position: fixed;
+    padding: 20px;
+}
+
+.sidebar h2 {
+    margin-bottom: 30px;
+}
+
+.sidebar a {
+    display: block;
+    margin: 10px 0;
+    color: #ccc;
+    text-decoration: none;
+}
+
+.sidebar a:hover {
+    color: white;
+}
+
+/* MAIN */
+.main {
+    margin-left: 240px;
+    padding: 30px;
+}
+
+/* HEADER */
+.profileHeader {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background: rgba(255,255,255,0.08);
+    padding: 20px;
+    border-radius: 15px;
+}
+
+.avatar {
+    width: 60px;
+    height: 60px;
+    background: #36d1dc;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+}
+
+/* STATS */
+.stats {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.card {
+    flex: 1;
+    padding: 20px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 12px;
+    text-align: center;
+}
+
+/* BOOKINGS */
+.bookingList {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.bookingCard {
+    padding: 15px;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.08);
+    border-left: 4px solid #36d1dc;
+}
+
+.logoutBtn {
+    margin-top: 20px;
+    background: red;
+    border: none;
+    padding: 10px 15px;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="sidebar">
+<h2>TransitCloud</h2>
+<a href="home.html">Home</a>
+<a href="profile.html">Profile</a>
+<a href="buses.html">Buses</a>
+</div>
+
+<div class="main">
+
+<h1>👤 My Profile</h1>
+
+<div class="profileHeader">
+<div class="avatar" id="avatar">U</div>
+
+<div>
+<h2 id="userName">User</h2>
+<p id="userEmail">email</p>
+</div>
+</div>
+
+<!-- STATS -->
+<div class="stats">
+<div class="card">
+<h2 id="totalBookings">0</h2>
+<p>Bookings</p>
+</div>
+
+<div class="card">
+<h2 id="totalSeats">0</h2>
+<p>Seats</p>
+</div>
+
+<div class="card">
+<h2 id="avgFare">₹0</h2>
+<p>Avg Fare</p>
+</div>
+
+<!-- 🔥 NEW -->
+<div class="card">
+<h2 id="totalSpent">₹0</h2>
+<p>Total Spent</p>
+</div>
+
+</div>
+
+<h2 style="margin-top:30px;">📄 Booking History</h2>
+
+<div id="bookingList" class="bookingList"></div>
+
+<button onclick="logout()" class="logoutBtn">Logout</button>
+
+</div>
+
+<script src="js/profile.js"></script>
+
+</body>
+</html>

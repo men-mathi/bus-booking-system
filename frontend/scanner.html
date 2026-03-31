@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Scan Ticket</title>
+
+<script src="https://unpkg.com/html5-qrcode"></script>
+
+<style>
+body {
+    background: #0f2027;
+    color: white;
+    text-align: center;
+}
+#reader {
+    width: 300px;
+    margin: auto;
+    margin-top: 40px;
+}
+</style>
+</head>
+
+<body>
+
+<h2>📷 Scan Ticket</h2>
+
+<div id="reader"></div>
+<div id="result"></div>
+
+<script>
+function onScanSuccess(decodedText) {
+
+    try {
+        const data = JSON.parse(decodedText);
+
+        document.getElementById("result").innerHTML = `
+            <h3 style="color:lightgreen;">✅ VALID</h3>
+            <p>${data.ticketId}</p>
+            <p>${data.from} → ${data.to}</p>
+        `;
+    } catch {
+        document.getElementById("result").innerHTML =
+            "<h3 style='color:red;'>❌ INVALID</h3>";
+    }
+}
+
+const html5QrCode = new Html5Qrcode("reader");
+
+Html5Qrcode.getCameras().then(devices => {
+    if (devices.length) {
+        html5QrCode.start(
+            devices[0].id,
+            { fps: 10, qrbox: 250 },
+            onScanSuccess
+        );
+    }
+});
+</script>
+
+</body>
+</html>
