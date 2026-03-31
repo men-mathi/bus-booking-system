@@ -46,7 +46,7 @@ if (!localStorage.getItem("adminToken")) {
 <script>
 async function loadUsers() {
 
-    const res = await fetch("http://localhost:5000/api/admin/users");
+    const res = await fetch("https://transitcloud-backend-service-production.onrender.com");
     const data = await res.json();
 
     const tbody = document.getElementById("userTable");

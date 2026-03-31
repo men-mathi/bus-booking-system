@@ -4,7 +4,7 @@ async function loadBuses(){
 
 try{
 
-const response = await fetch("http://localhost:5000/api/buses");
+const response = await fetch("https://transitcloud-backend-service-production.onrender.com");
 
 const buses = await response.json();
 

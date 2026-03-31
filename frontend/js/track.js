@@ -156,7 +156,7 @@ setInterval(() => {
 // ================================
 // 🔥 FUTURE: REAL-TIME SOCKET READY
 // ================================
-const socket = io("http://localhost:5000");
+const socket = io("https://transitcloud-backend-service-production.onrender.com");
 
 socket.on("busLocation", (data) => {
 
