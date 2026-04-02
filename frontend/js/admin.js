@@ -7,7 +7,7 @@ if (!token) {
 
 // DASHBOARD
 async function loadDashboard() {
-    const res = await fetch("https://transitcloud-backend-service-production.onrender.com", {
+    const res = await fetch("http://localhost:5000/api/admin/stats", {
         headers: { Authorization: `Bearer ${token}` }
     });
     const data = await res.json();
@@ -19,7 +19,7 @@ async function loadDashboard() {
 
 // LOAD BUSES
 async function loadAdminBuses() {
-    const res = await fetch("https://transitcloud-backend-service-production.onrender.com", {
+    const res = await fetch("http://localhost:5000/api/admin/buses", {
         headers: { Authorization: `Bearer ${token}` }
     });
 
@@ -47,7 +47,7 @@ async function addBus() {
     const to = document.getElementById("to").value;
     const price = document.getElementById("price").value;
 
-    await fetch("https://transitcloud-backend-service-production.onrender.com", {
+    await fetch("http://localhost:5000/api/admin/buses", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -61,7 +61,7 @@ async function addBus() {
 
 // DELETE BUS
 async function deleteBus(id) {
-    await fetch(`https://transitcloud-backend-service-production.onrender.com${id}`, {
+    await fetch(`http://localhost:5000/api/admin/buses/${id}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` }
     });
@@ -71,7 +71,7 @@ async function deleteBus(id) {
 
 // USERS
 async function loadUsers() {
-    const res = await fetch("https://transitcloud-backend-service-production.onrender.com", {
+    const res = await fetch("http://localhost:5000/api/admin/users", {
         headers: { Authorization: `Bearer ${token}` }
     });
 
@@ -87,7 +87,7 @@ async function loadUsers() {
 
 // BOOKINGS
 async function loadBookings() {
-    const res = await fetch("https://transitcloud-backend-service-production.onrender.com", {
+    const res = await fetch("http://localhost:5000/api/admin/bookings", {
         headers: { Authorization: `Bearer ${token}` }
     });
 

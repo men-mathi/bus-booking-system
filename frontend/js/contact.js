@@ -33,7 +33,7 @@ message
 
 try{
 
-const res = await fetch("https://transitcloud-backend-service-production.onrender.com",{
+const res = await fetch("http://localhost:5000/api/contact",{
 
 method:"POST",
 

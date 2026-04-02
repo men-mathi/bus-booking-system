@@ -1,4 +1,4 @@
-const socket = io("https://transitcloud-backend-service-production.onrender.com"); // 🔥 NEW
+const socket = io("http://localhost:5000"); // 🔥 NEW
 
 const seatContainer = document.getElementById("seatContainer");
 const confirmBtn = document.getElementById("confirmBtn");
@@ -26,7 +26,7 @@ if (!bus) {
 /* LOAD BOOKED SEATS */
 async function loadBookedSeats() {
     try {
-        const res = await fetch(`https://transitcloud-backend-service-production.onrender.com/${bus._id}`);
+        const res = await fetch(`http://localhost:5000/api/bookings/seats/${bus._id}`);
         bookedSeats = await res.json();
 
         generateSeats();

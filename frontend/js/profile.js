@@ -14,7 +14,7 @@ async function loadProfile() {
 
     try {
 
-        const res = await fetch(`https://transitcloud-backend-service-production.onrender.com/${user._id}`);
+        const res = await fetch(`http://localhost:5000/api/profile/bookings/${user._id}`);
         const data = await res.json();
 
         if (!Array.isArray(data)) return;
@@ -141,7 +141,7 @@ async function cancelBooking(id) {
     if (!confirm("Cancel booking?")) return;
 
     try {
-        const res = await fetch(`https://transitcloud-backend-service-production.onrender.com${id}`, {
+        const res = await fetch(`http://localhost:5000/api/bookings/cancel/${id}`, {
             method: "DELETE"
         });
 

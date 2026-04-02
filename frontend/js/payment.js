@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        fetch("https://transitcloud-backend-service-production.onrender.com", {
+        fetch("http://localhost:5000/api/bookings/book", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

@@ -13,7 +13,7 @@ function onScanSuccess(decodedText) {
     }
 
     // 🔥 AUTO VERIFY WITH BACKEND
-    fetch("https://transitcloud-backend-service-production.onrender.com", {
+    fetch("http://localhost:5000/api/tickets/verify", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"

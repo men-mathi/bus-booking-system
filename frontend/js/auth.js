@@ -9,7 +9,7 @@ async function register() {
 
     try {
 
-        const res = await fetch("https://transitcloud-backend-service-production.onrender.com", {
+        const res = await fetch("https://transitcloud-backend-service-production.onrender.com/api/auth/register", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -44,7 +44,7 @@ async function login() {
 
     try {
 
-        const res = await fetch("https://transitcloud-backend-service-production.onrender.com", {
+        const res = await fetch("https://transitcloud-backend-service-production.onrender.com/api/auth/login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
