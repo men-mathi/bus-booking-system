@@ -60,7 +60,7 @@ if (!localStorage.getItem("adminToken")) {
 <script>
 async function loadBuses() {
 
-    const res = await fetch("http://localhost:5000/api/admin/buses");
+    const res = await fetch("https://bus-booking-system-94pd.onrender.com/api/admin/buses");
     const buses = await res.json();
 
     const table = document.querySelector("table");
@@ -81,7 +81,7 @@ async function loadBuses() {
 }
 
 async function deleteBus(id) {
-    await fetch(`http://localhost:5000/api/admin/buses/${id}`, {
+    await fetch(`https://bus-booking-system-94pd.onrender.com/api/admin/buses/${id}`, {
         method: "DELETE"
     });
 

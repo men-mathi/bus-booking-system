@@ -49,7 +49,7 @@ if (!localStorage.getItem("adminToken")) {
 <script>
 async function loadBookings() {
 
-    const res = await fetch("http://localhost:5000/api/admin/bookings");
+    const res = await fetch("https://bus-booking-system-94pd.onrender.com/api/admin/bookings");
     const data = await res.json();
 
     const table = document.querySelector("table");

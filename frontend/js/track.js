@@ -156,7 +156,7 @@ setInterval(() => {
 // ================================
 // 🔥 FUTURE: REAL-TIME SOCKET READY
 // ================================
-const socket = io("http://localhost:5000");
+const socket = io("https://bus-booking-system-94pd.onrender.com");
 
 socket.on("busLocation", (data) => {
 

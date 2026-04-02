@@ -4,7 +4,7 @@ async function loadBuses(){
 
 try{
 
-const response = await fetch("http://localhost:5000/api/buses");
+const response = await fetch("https://bus-booking-system-94pd.onrender.com/api/buses");
 
 const buses = await response.json();
 

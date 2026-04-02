@@ -13,7 +13,7 @@ function onScanSuccess(decodedText) {
     }
 
     // 🔥 AUTO VERIFY WITH BACKEND
-    fetch("http://localhost:5000/api/tickets/verify", {
+    fetch("https://bus-booking-system-94pd.onrender.com/api/tickets/verify", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"

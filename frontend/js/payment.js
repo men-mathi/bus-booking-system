@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        fetch("http://localhost:5000/api/bookings/book", {
+        fetch("https://bus-booking-system-94pd.onrender.com/api/bookings/book", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

@@ -1,4 +1,4 @@
-const socket = io("http://localhost:5000"); // 🔥 NEW
+const socket = io("https://bus-booking-system-94pd.onrender.com"); // 🔥 NEW
 
 const seatContainer = document.getElementById("seatContainer");
 const confirmBtn = document.getElementById("confirmBtn");
@@ -26,7 +26,7 @@ if (!bus) {
 /* LOAD BOOKED SEATS */
 async function loadBookedSeats() {
     try {
-        const res = await fetch(`http://localhost:5000/api/bookings/seats/${bus._id}`);
+        const res = await fetch(`https://bus-booking-system-94pd.onrender.com/api/bookings/seats/${bus._id}`);
         bookedSeats = await res.json();
 
         generateSeats();

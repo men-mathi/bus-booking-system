@@ -58,7 +58,7 @@ if (!localStorage.getItem("adminToken")) {
 /* ================= LOAD STATS ================= */
 async function loadStats() {
 
-    const res = await fetch("http://localhost:5000/api/admin/stats");
+    const res = await fetch("https://bus-booking-system-94pd.onrender.com/api/admin/stats");
     const data = await res.json();
 
     document.getElementById("users").innerText = data.users || 0;

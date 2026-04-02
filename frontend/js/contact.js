@@ -33,7 +33,7 @@ message
 
 try{
 
-const res = await fetch("http://localhost:5000/api/contact",{
+const res = await fetch("https://bus-booking-system-94pd.onrender.com/api/contact",{
 
 method:"POST",
 
