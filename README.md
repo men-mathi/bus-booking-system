@@ -59,6 +59,9 @@ A fully functional cloud-based public transport ticketing system built with HTML
 
 ## 📸 Project Structure
 
+## 📁 Project Structure
+
+<pre>
 bus-booking-system/
 │
 ├── frontend/
@@ -73,34 +76,33 @@ bus-booking-system/
 │   ├── payment.html               # Payment simulation
 │   ├── ticket.html                # QR ticket & download
 │   ├── contact.html               # Contact form
-│   ├── about.html                 # About page
 │   └── admin/
 │       ├── adminLogin.html        # Admin login
-│       ├── adminDashboard.html    # Admin stats dashboard
+│       ├── adminDashboard.html    # Admin dashboard
 │       ├── adminBuses.html        # Manage bus routes
 │       ├── adminBookings.html     # View all bookings
 │       ├── adminUsers.html        # View all users
-│       └── adminMessages.html     # View contact messages
+│       └── adminMessages.html    # View contact messages
 │
 └── backend/
-├── server.js                  # Entry point & Socket.IO
-├── .env                       # Environment variables
-├── routes/
-│   ├── authRoutes.js          # Auth endpoints (login, register, OTP)
-│   ├── busRoutes.js           # Bus search endpoints
-│   ├── bookingRoutes.js       # Booking endpoints
-│   ├── contactRoutes.js       # Contact form endpoints
-│   ├── adminRoutes.js         # Admin dashboard endpoints
-│   └── profileRoutes.js       # User profile endpoints
-├── controllers/
-│   ├── authController.js      # Auth logic
-│   ├── busController.js       # Bus logic
-│   ├── bookingController.js   # Booking logic
-│   └── contactController.js   # Contact logic
-├── models/
-│   ├── User.js                # User schema
-│   ├── Bus.js                 # Bus schema
-│   └── Booking.js             # Booking schema
-└── middleware/
-└── authMiddleware.js      # JWT verification
-
+    ├── server.js                  # Entry point & Socket.IO
+    ├── .env                       # Environment variables
+    ├── routes/
+    │   ├── authRoutes.js          # Auth endpoints
+    │   ├── busRoutes.js           # Bus endpoints
+    │   ├── bookingRoutes.js       # Booking endpoints
+    │   ├── contactRoutes.js       # Contact endpoints
+    │   ├── adminRoutes.js         # Admin endpoints
+    │   └── profileRoutes.js       # Profile endpoints
+    ├── controllers/
+    │   ├── authController.js      # Auth logic
+    │   ├── busController.js       # Bus logic
+    │   ├── bookingController.js   # Booking logic
+    │   └── contactController.js   # Contact logic
+    ├── models/
+    │   ├── User.js                # User schema
+    │   ├── Bus.js                 # Bus schema
+    │   └── Booking.js             # Booking schema
+    └── middleware/
+        └── authMiddleware.js      # JWT verification
+</pre>
