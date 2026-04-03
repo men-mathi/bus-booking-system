@@ -143,7 +143,7 @@ router.post("/forgot-password", async (req, res) => {
             { expiresIn: "15m" }
         );
 
-        const resetLink = `http://127.0.0.1:5500/frontend/reset.html?token=${token}`;
+       const resetLink = `https://transitcloud.netlify.app/reset.html?token=${token}`;
 
         await transporter.sendMail({
             from: process.env.EMAIL_USER,
